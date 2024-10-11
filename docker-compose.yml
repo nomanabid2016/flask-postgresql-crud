@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - my-net
+
+  tasks:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5006:5006"
+    networks:
+      - my-net
+
+
+volumes:
+  postgres-data:
